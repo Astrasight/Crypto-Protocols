@@ -137,7 +137,7 @@ public class grilleCipher {
     public String decrypt(grilleAlgo key) {
         return "";
     }
-    
+
     public void displayKeyPositions() {
         System.out.println("-- Grille Key Positions --");
         for (int i = 0; i < keyPositions.length; ++i) {

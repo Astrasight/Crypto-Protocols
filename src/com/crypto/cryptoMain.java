@@ -469,5 +469,8 @@ public class cryptoMain {
 
         System.out.println(gcd(a, b));
     }
+    public static void extendedEuclid() {
+
+    }
 
 }
