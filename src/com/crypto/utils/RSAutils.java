@@ -18,11 +18,11 @@ public class RSAutils {
         return phi;
     }
 
-    public static BigInteger gcd(BigInteger a, BigInteger b) {
+    public static BigInteger RSAgcd(BigInteger a, BigInteger b) {
         if (b.equals(zero)) {
             return a;
         } else {
-            return gcd(b, a.mod(b));
+            return RSAgcd(b, a.mod(b));
         }
     }
 

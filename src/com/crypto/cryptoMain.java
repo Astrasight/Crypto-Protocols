@@ -447,4 +447,27 @@ public class cryptoMain {
         System.out.println(cipher.decrypt(encrypted, key));
     }
 
+    public static void euclidCipher() {
+        int a = 103;
+        int b = 485;
+        System.out.println("a = " + a);
+        System.out.println("b = " + b);
+        while (b != 0) {
+            int tmp = a % b;
+            a = b;
+            b = tmp;
+        }
+        System.out.println(a);
+    }
+
+    public static void binaryEuclidCipher() {
+        long a = 189206;
+        long b = 246;
+
+        System.out.println("a = " + a);
+        System.out.println("b = " + b);
+
+        System.out.println(gcd(a, b));
+    }
+
 }
