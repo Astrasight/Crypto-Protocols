@@ -1,5 +1,6 @@
 package com.crypto;
 
+import com.crypto.ciphers.XORcipher;
 import com.crypto.ciphers.vigenereCipher;
 import com.crypto.ciphers.grille.grilleAlgo;
 import com.crypto.ciphers.grille.grilleCipher;
@@ -10,6 +11,7 @@ import static com.crypto.utils.languageUtils.*;
 import static com.crypto.utils.cipherUtils.*;
 import static com.crypto.utils.RSAutils.*;
 import static com.crypto.signatures.blindSignatureClass.*;
+import static com.crypto.utils.mathUtils.*;
 import static java.lang.System.in;
 
 import java.math.BigInteger;
@@ -17,6 +19,7 @@ import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Arrays;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class cryptoMain {
 
@@ -26,7 +29,8 @@ public class cryptoMain {
 
     public static void main(String[] args) {
         System.out.println("1 - Diffie-Hellman \n2 - El-Gamal\n3 - El-Gamal Signature\n4 - RSA\n5 - RSA Signature\n6 - Blind Signature RSA\n7 - Caesar Cipher with key k\n8 - Atbash cipher\n9 - Route Cipher\n" +
-                "10 - Vigenere Cipher\n11 - Grille Cipher\n12 - XOR Cipher\n13 - ");
+                "10 - Vigenere Cipher\n11 - Grille Cipher\n12 - XOR cipher\n13 - Euclid Algorithm\n 14 - Binary Euclid\n 15 - Extended Euclid\n 16 - Extended Binary Euclid\n" +
+                "17 - Jacobi Symbol\n18 - Solovay-Strassen Test\n19 - Miller-Rabin Test\n20 - ");
         Scanner scan = new Scanner(in);
         while (!scan.hasNextInt()) {
             scan.next();
@@ -69,6 +73,27 @@ public class cryptoMain {
             case 12:
                 XORcipher();
                 break;
+            case 13:
+                euclidCipher();
+                break;
+            case 14:
+                binaryEuclidCipher();
+                break;
+            case 15:
+                extendedEuclid();
+                break;
+            case 16:
+                extendedBinaryEuclid();
+                break;
+            case 17:
+                jacobiSymbol();
+                break;
+            case 18:
+                solovayStrassenTest();
+                break;
+            case 19:
+                millerRabinTest();
+                break;
         }
     }
 
@@ -87,16 +112,16 @@ public class cryptoMain {
         a = largePrime(8);
         System.out.println("closed key for Alice: " + a);
 
-        x = power(G, a, P);
+        x = powerBigInt(G, a, P);
 
         b = largePrime(8);
         ;
         System.out.println("closed key for Bob: " + b);
 
-        y = power(G, b, P);
+        y = powerBigInt(G, b, P);
 
-        ka = power(y, a, P);
-        kb = power(x, b, P);
+        ka = powerBigInt(y, a, P);
+        kb = powerBigInt(x, b, P);
 
         System.out.println("Secret key for the Alice is: " + ka);
         System.out.println("Secret key for the Bob is: " + kb);
@@ -145,11 +170,11 @@ public class cryptoMain {
         // Алиса выбирает q и вычисляет p = 2q + 1
         BigInteger q = BigInteger.probablePrime(32, random);
         BigInteger p = q.multiply(BigInteger.valueOf(2)).add(one);
-        while (!isPrime(q)) {
+        while (!isPrimeBigInt(q)) {
             q = BigInteger.probablePrime(32, random);
         }
         System.out.println("q = " + q);
-        while (!isPrime(p)) {
+        while (!isPrimeBigInt(p)) {
             q = BigInteger.probablePrime(32, random);
             p = q.multiply(BigInteger.valueOf(2)).add(one);
         }
@@ -435,8 +460,8 @@ public class cryptoMain {
     }
 
     public static void XORcipher() {
-        String message = "SampleStringToBeEncrypted";
-        String key = "thisIsAKey";
+        String message = "some text to be encrypted";
+        String key = "thisisakey";
 
         XORcipher cipher = new XORcipher(message, key);
 
@@ -469,8 +494,64 @@ public class cryptoMain {
 
         System.out.println(gcd(a, b));
     }
-    public static void extendedEuclid() {
 
+    public static void extendedEuclid() {
+        int a = 30;
+        int b = 50;
+        System.out.println("a = " + a + " and b = " + b);
+
+        AtomicInteger x = new AtomicInteger(), y = new AtomicInteger();
+
+        System.out.println("The GCD is " + extended_gcd(a, b, x, y));
+        System.out.printf("x = %d, y = %d\n", x.get(), y.get());
     }
 
+    public static void extendedBinaryEuclid() {
+        int a = 36;
+        int b = 54;
+        int[] res = extendedBinary_gcd(a, b);
+        System.out.printf("(%d)*%d + (%d)*%d = %d\n", res[0], a, res[1], b, res[2]);
+    }
+
+    public static void fermatPrimality() {
+        int k = 3;
+        if (isPrime(11,k)) System.out.println(" true");
+        else System.out.println(" false");
+        if (isPrime(15, k)) System.out.println(" true");
+        else System.out.println(" false");
+    }
+
+    public static void jacobiSymbol() {
+        int a = 3;
+        int n = 7;
+        int result = calculateJacobi(a, n);
+        System.out.printf("Jacobi symbol of (%d/%d) = %d\n", a, n, result);
+    }
+
+    public static void solovayStrassenTest() {
+        int iter = 50;
+        int n1 = 15;
+        int n2 = 13;
+
+        if (solovayStrassen(n1, iter))
+            System.out.println(n1 + " is prime");
+        else
+            System.out.println(n1 + " is composite");
+
+        if (solovayStrassen(n2,iter))
+            System.out.println(n2 + " is prime");
+        else
+            System.out.println(n2 + " is composite");
+    }
+
+    public static void millerRabinTest() {
+        int k = 8;
+        int number = 1725;
+        System.out.println("All primes smaller "
+                + "than 100: ");
+
+        for (int n = 1; n < 100; n++)
+            if (isPrimeMiller(n, k))
+                System.out.print(n + " ");
+    }
 }
