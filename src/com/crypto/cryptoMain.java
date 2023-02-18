@@ -26,7 +26,7 @@ public class cryptoMain {
 
     public static void main(String[] args) {
         System.out.println("1 - Diffie-Hellman \n2 - El-Gamal\n3 - El-Gamal Signature\n4 - RSA\n5 - RSA Signature\n6 - Blind Signature RSA\n7 - Caesar Cipher with key k\n8 - Atbash cipher\n9 - Route Cipher\n" +
-                "10 - Vigenere Cipher\n11 - Grille Cipher\n12 - ");
+                "10 - Vigenere Cipher\n11 - Grille Cipher\n12 - XOR Cipher\n13 - ");
         Scanner scan = new Scanner(in);
         while (!scan.hasNextInt()) {
             scan.next();
@@ -65,6 +65,9 @@ public class cryptoMain {
                 break;
             case 11:
                 grilleCipher();
+                break;
+            case 12:
+                XORcipher();
                 break;
         }
     }
@@ -429,7 +432,19 @@ public class cryptoMain {
         grilleAlgo key = cipher.generateRandomKey();
         String cipherText = cipher.encrypt(key);
         System.out.println("ciphertext: " + cipherText);
-
-
     }
+
+    public static void XORcipher() {
+        String message = "SampleStringToBeEncrypted";
+        String key = "thisIsAKey";
+
+        XORcipher cipher = new XORcipher(message, key);
+
+        int[] encrypted = cipher.encrypt(message, key);
+        for(int i = 0; i < encrypted.length; i++)
+            System.out.printf("%d,", encrypted[i]);
+        System.out.println("");
+        System.out.println(cipher.decrypt(encrypted, key));
+    }
+
 }
