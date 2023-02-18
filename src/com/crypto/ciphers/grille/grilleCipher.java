@@ -137,10 +137,7 @@ public class grilleCipher {
     public String decrypt(grilleAlgo key) {
         return "";
     }
-
-    /**
-     * Displays the slot positions of the key in a listed format
-     */
+    
     public void displayKeyPositions() {
         System.out.println("-- Grille Key Positions --");
         for (int i = 0; i < keyPositions.length; ++i) {
@@ -148,11 +145,6 @@ public class grilleCipher {
         }
     }
 
-    /**
-     * Separates the plaintext in four groups of length N * N / 4
-     * @param plaintext the plaintext to separate
-     * @return an array containing four strings
-     */
     public String[] separatePlaintext(String plaintext) {
         int N = getPlaintextLength();
         int N0 = N / 4, N1 = N / 2, N2 = 3 * N / 4;
