@@ -24,6 +24,10 @@ import java.util.Arrays;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class cryptoMain {
+    private static final int p = 1018;
+    private static final int P = p + 1;
+    private static final int x = 2;
+    private static final int y = 5;
 
     private final static BigInteger one = new BigInteger("1");
     private final static SecureRandom random = new SecureRandom();
@@ -32,7 +36,7 @@ public class cryptoMain {
     public static void main(String[] args) {
         System.out.println("1 - Diffie-Hellman \n2 - El-Gamal\n3 - El-Gamal Signature\n4 - RSA\n5 - RSA Signature\n6 - Blind Signature RSA\n7 - Caesar Cipher with key k\n8 - Atbash cipher\n9 - Route Cipher\n" +
                 "10 - Vigenere Cipher\n11 - Grille Cipher\n12 - XOR cipher\n13 - Euclid Algorithm\n 14 - Binary Euclid\n 15 - Extended Euclid\n 16 - Extended Binary Euclid\n" +
-                "17 - Jacobi Symbol\n18 - Solovay-Strassen Test\n19 - Miller-Rabin Test\n20 - Pollard Rho Algorithm");
+                "17 - Jacobi Symbol\n18 - Solovay-Strassen Test\n19 - Miller-Rabin Test\n20 - Pollard Rho Algorithm Fact\n21 - Pollard Rho Algorithm Log\n22 - Arithmetic Operations");
         Scanner scan = new Scanner(in);
         while (!scan.hasNextInt()) {
             scan.next();
@@ -97,7 +101,13 @@ public class cryptoMain {
                 millerRabinTest();
                 break;
             case 20:
-                rhoAlgorithm();
+                rhoAlgorithmFact();
+                break;
+            case 21:
+                rhoAlgorithmLog();
+                break;
+            case 22:
+                arithmetic();
                 break;
         }
     }
@@ -491,8 +501,8 @@ public class cryptoMain {
     }
 
     public static void binaryEuclidCipher() {
-        long a = 189206;
-        long b = 246;
+        int a = 189206;
+        int b = 246;
 
         System.out.println("a = " + a);
         System.out.println("b = " + b);
@@ -566,7 +576,7 @@ public class cryptoMain {
         System.out.println("the number is " + number);
 
         System.out.println("\nFactors are : ");
-        factor(number);
+        factorRho(number);
     }
 
     public static void rhoAlgorithmLog() {
@@ -576,4 +586,29 @@ public class cryptoMain {
                 rhoLog(n));
     }
 
+    public static void arithmetic() {
+        int result;
+        Scanner scan = new Scanner(System.in);
+        System.out.println("enter any number1 > 0\n");
+        int n1 = scan.nextInt();
+        System.out.println("enter any number2 > 0\n");
+        int n2 = scan.nextInt();
+
+        System.out.println("add operation\n");
+        result = add(n1,n2);
+        System.out.println(result + "\n");
+        System.out.println("substract operation\n");
+        result = substract(n1,n2);
+        System.out.println(result + "\n");
+        System.out.println("multiply operation\n");
+        result = multiply(n1,n2);
+        System.out.println(result + "\n");
+        System.out.println("divide\n");
+        result = divide(n1,n2);
+        System.out.println(result + "\n");
+        System.out.println("karatsuba algorithm\n");
+        result = multiplyKaratsuba(n1,n2);
+        System.out.println(result + "\n");
+
+    }
 }
