@@ -12,6 +12,7 @@ import static com.crypto.utils.cipherUtils.*;
 import static com.crypto.utils.RSAutils.*;
 import static com.crypto.signatures.blindSignatureClass.*;
 import static com.crypto.utils.mathUtils.*;
+import static com.crypto.utils.pollardMethod.*;
 import static java.lang.System.in;
 
 import java.math.BigInteger;
@@ -30,7 +31,7 @@ public class cryptoMain {
     public static void main(String[] args) {
         System.out.println("1 - Diffie-Hellman \n2 - El-Gamal\n3 - El-Gamal Signature\n4 - RSA\n5 - RSA Signature\n6 - Blind Signature RSA\n7 - Caesar Cipher with key k\n8 - Atbash cipher\n9 - Route Cipher\n" +
                 "10 - Vigenere Cipher\n11 - Grille Cipher\n12 - XOR cipher\n13 - Euclid Algorithm\n 14 - Binary Euclid\n 15 - Extended Euclid\n 16 - Extended Binary Euclid\n" +
-                "17 - Jacobi Symbol\n18 - Solovay-Strassen Test\n19 - Miller-Rabin Test\n20 - ");
+                "17 - Jacobi Symbol\n18 - Solovay-Strassen Test\n19 - Miller-Rabin Test\n20 - Pollard Rho Algorithm");
         Scanner scan = new Scanner(in);
         while (!scan.hasNextInt()) {
             scan.next();
@@ -93,6 +94,9 @@ public class cryptoMain {
                 break;
             case 19:
                 millerRabinTest();
+                break;
+            case 20:
+                rhoAlgorithm();
                 break;
         }
     }
@@ -553,5 +557,14 @@ public class cryptoMain {
         for (int n = 1; n < 100; n++)
             if (isPrimeMiller(n, k))
                 System.out.print(n + " ");
+    }
+
+    public static void rhoAlgorithm() {
+        int number = 1824;
+        System.out.println("Pollard Rho Algorithm\n");
+        System.out.println("the number is " + number);
+
+        System.out.println("\nFactors are : ");
+        factor(number);
     }
 }
