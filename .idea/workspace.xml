@@ -26,11 +26,12 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Users/user/Documents/GitHub/Crypto-Protocols/src/com/crypto/ciphers"
+    "last_opened_file_path": "C:/Users/user/Documents/GitHub/Crypto-Protocols/src/com/crypto/utils"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\user\Documents\GitHub\Crypto-Protocols\src\com\crypto\utils" />
       <recent name="C:\Users\user\Documents\GitHub\Crypto-Protocols\src\com\crypto\ciphers" />
       <recent name="C:\Users\user\Documents\GitHub\Crypto-Protocols\.idea" />
     </key>
@@ -46,7 +47,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1676720254496</updated>
-      <workItem from="1676720256143" duration="6211000" />
+      <workItem from="1676720256143" duration="7458000" />
     </task>
     <servers />
   </component>

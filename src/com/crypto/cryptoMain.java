@@ -559,7 +559,7 @@ public class cryptoMain {
                 System.out.print(n + " ");
     }
 
-    public static void rhoAlgorithm() {
+    public static void rhoAlgorithmFact() {
         int number = 1824;
         System.out.println("Pollard Rho Algorithm\n");
         System.out.println("the number is " + number);
@@ -567,4 +567,12 @@ public class cryptoMain {
         System.out.println("\nFactors are : ");
         factor(number);
     }
+
+    public static void rhoAlgorithmLog() {
+        int n = 1258125;
+        System.out.println("the number is " + n);
+        System.out.print("Divisor of  " + n + " is " +
+                rhoLog(n));
+    }
+
 }
