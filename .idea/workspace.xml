@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="abf49692-cdb7-4843-8ae0-a28d0cf8ed74" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/crypto/cryptoMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/crypto/cryptoMain.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,7 +46,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1676720254496</updated>
-      <workItem from="1676720256143" duration="7458000" />
+      <workItem from="1676720256143" duration="8792000" />
     </task>
     <servers />
   </component>

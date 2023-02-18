@@ -13,6 +13,7 @@ import static com.crypto.utils.RSAutils.*;
 import static com.crypto.signatures.blindSignatureClass.*;
 import static com.crypto.utils.mathUtils.*;
 import static com.crypto.utils.pollardMethod.*;
+import static com.crypto.utils.arithmeticOperations.*;
 import static java.lang.System.in;
 
 import java.math.BigInteger;
