@@ -1,42 +1,35 @@
 package com.crypto;
 
-import com.crypto.ciphers.XORcipher;
-import com.crypto.ciphers.vigenereCipher;
-import com.crypto.ciphers.grille.grilleAlgo;
-import com.crypto.ciphers.grille.grilleCipher;
-
 import static com.crypto.signatures.RSASignatureClass.*;
 import static com.crypto.signatures.elgamalSignatureClass.*;
-import static com.crypto.utils.languageUtils.*;
 import static com.crypto.utils.cipherUtils.*;
 import static com.crypto.utils.RSAutils.*;
 import static com.crypto.signatures.blindSignatureClass.*;
-import static com.crypto.utils.mathUtils.*;
-import static com.crypto.utils.pollardMethod.*;
-import static com.crypto.utils.arithmeticOperations.*;
 import static java.lang.System.in;
 
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.math.BigInteger;
 import java.security.SecureRandom;
-import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.Arrays;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class cryptoMain {
-    private static final int p = 1018;
-    private static final int P = p + 1;
-    private static final int x = 2;
-    private static final int y = 5;
-
     private final static BigInteger one = new BigInteger("1");
     private final static SecureRandom random = new SecureRandom();
     private final static String alphabet = "abcdefghijklmnopqrstuvwxyz ";
 
-    public static void main(String[] args) {
-        System.out.println("1 - Diffie-Hellman \n2 - El-Gamal\n3 - El-Gamal Signature\n4 - RSA\n5 - RSA Signature\n6 - Blind Signature RSA\n7 - Caesar Cipher with key k\n8 - Atbash cipher\n9 - Route Cipher\n" +
-                "10 - Vigenere Cipher\n11 - Grille Cipher\n12 - XOR cipher\n13 - Euclid Algorithm\n 14 - Binary Euclid\n 15 - Extended Euclid\n 16 - Extended Binary Euclid\n" +
-                "17 - Jacobi Symbol\n18 - Solovay-Strassen Test\n19 - Miller-Rabin Test\n20 - Pollard Rho Algorithm Fact\n21 - Pollard Rho Algorithm Log\n22 - Arithmetic Operations");
+    public static void main(String[] args) throws Exception {
+
+        cryptoInvokes myObj = new cryptoInvokes();
+        Method[] methods = cryptoInvokes.class.getDeclaredMethods();
+
+        for(Method method : methods) {
+            if (Modifier.isPublic(method.getModifiers())) {
+                method.invoke(myObj);
+            }
+        }
+
+        System.out.println("1 - Diffie-Hellman \n2 - El-Gamal\n3 - El-Gamal Signature\n4 - RSA\n5 - RSA Signature\n6 - Blind Signature RSA\n");
         Scanner scan = new Scanner(in);
         while (!scan.hasNextInt()) {
             scan.next();
@@ -60,54 +53,6 @@ public class cryptoMain {
                 break;
             case 6:
                 blindSignatureFunc();
-                break;
-            case 7:
-                caesarCipher();
-                break;
-            case 8:
-                atbashCipher();
-                break;
-            case 9:
-                routeCipher();
-                break;
-            case 10:
-                vigenereCipher();
-                break;
-            case 11:
-                grilleCipher();
-                break;
-            case 12:
-                XORcipher();
-                break;
-            case 13:
-                euclidCipher();
-                break;
-            case 14:
-                binaryEuclidCipher();
-                break;
-            case 15:
-                extendedEuclid();
-                break;
-            case 16:
-                extendedBinaryEuclid();
-                break;
-            case 17:
-                jacobiSymbol();
-                break;
-            case 18:
-                solovayStrassenTest();
-                break;
-            case 19:
-                millerRabinTest();
-                break;
-            case 20:
-                rhoAlgorithmFact();
-                break;
-            case 21:
-                rhoAlgorithmLog();
-                break;
-            case 22:
-                arithmetic();
                 break;
         }
     }
@@ -364,251 +309,5 @@ public class cryptoMain {
         System.out.println("blind sign: " + blindSig);
         System.out.println("blind retrieve sign: " + sig);
         System.out.println("sign: " + realSig);
-    }
-
-    public static void caesarCipher() {
-
-        String[] alphabet1 = new String[]{"abcdefghijklmnopqrstuvwxyz"};
-
-        String message = "some text with particular length";
-        int k = 5;
-        System.out.println("key k: " + k);
-        int m = alphabet.length();
-        ArrayList<String> result = new ArrayList<String>();
-
-        for (int l = 0; l < m; ++l) {
-            result.add(shift(message, alphabet, l));
-        }
-
-        for (String word : result) {
-            System.out.println("The encrypted (key is " + k + ") word is: " + word);
-            k += 1;
-        }
-    }
-
-    public static void atbashCipher() {
-        String text = "flip the text and replace each odd character with its number";
-        int[] isOdd = {1};
-        StringBuilder sb = new StringBuilder();
-        for (char tmp : text.toCharArray()) {
-            if (isOdd[0] % 2 != 0)
-                sb.append(isOdd[0]);
-            else sb.append(tmp);
-            isOdd[0]++;
-        }
-        System.out.println(text);
-        System.out.println(sb.toString());
-        System.out.println(sb.reverse().toString());
-    }
-
-    public static void routeCipher() {
-        System.out.print("type your key: ");
-        Scanner scan = new Scanner(System.in);
-        String key = scan.nextLine();
-        System.out.print("type your message: ");
-        String message = scan.nextLine();
-        int msgchar = message.length();
-        int l = key.length();
-
-        if (!((msgchar % l) == 0)) {
-
-            do {
-                message = message + "x";
-                msgchar = message.length();
-            } while (!((msgchar % l) == 0));
-
-        }
-        String ans = "";
-
-        char temp[][] = new char[key.length()][message.length()];
-        char msg[] = message.toCharArray();
-        int x = 0;
-        int y = 0;
-        for (int i = 0; i < msg.length; i++) {
-            if (msg[i] == ' ')
-                temp[x][y] = '_';
-            else
-                temp[x][y] = msg[i];
-            if (y == (key.length() - 1)) {
-                y = 0;
-                x = x + 1;
-            } else {
-                y++;
-            }
-        }
-
-        char t[] = key.toCharArray();
-        Arrays.sort(t);
-
-        for (int j = 0; j < x; j++) {
-            for (int i = 0; i < key.length(); i++) {
-                System.out.print(temp[j][i]);
-            }
-            System.out.println();
-        }
-        for (int i = 0; i < t.length; i++) {
-            int pos = findLetterPosition(key, t[i]);
-            for (int j = 0; j < x; j++) {
-                ans += temp[j][pos];
-            }
-        }
-
-        System.out.println(ans);
-        System.exit(0);
-    }
-
-    public static void vigenereCipher() {
-        String key = "en";
-        vigenereCipher v = new vigenereCipher(97, 26);
-        String enc = v.encrypt("english", key);
-        System.out.println(enc);
-        String dec = v.decrypt(enc, key);
-        System.out.println(dec);
-    }
-
-    public static void grilleCipher() {
-        String plainText = "jimattacksatdawnnowinthemorning";
-        grilleCipher cipher = new grilleCipher(plainText);
-        grilleAlgo key = cipher.generateRandomKey();
-        String cipherText = cipher.encrypt(key);
-        System.out.println("ciphertext: " + cipherText);
-    }
-
-    public static void XORcipher() {
-        String message = "some text to be encrypted";
-        String key = "thisisakey";
-
-        XORcipher cipher = new XORcipher(message, key);
-
-        int[] encrypted = cipher.encrypt(message, key);
-        for(int i = 0; i < encrypted.length; i++)
-            System.out.printf("%d,", encrypted[i]);
-        System.out.println("");
-        System.out.println(cipher.decrypt(encrypted, key));
-    }
-
-    public static void euclidCipher() {
-        int a = 103;
-        int b = 485;
-        System.out.println("a = " + a);
-        System.out.println("b = " + b);
-        while (b != 0) {
-            int tmp = a % b;
-            a = b;
-            b = tmp;
-        }
-        System.out.println(a);
-    }
-
-    public static void binaryEuclidCipher() {
-        int a = 189206;
-        int b = 246;
-
-        System.out.println("a = " + a);
-        System.out.println("b = " + b);
-
-        System.out.println(gcd(a, b));
-    }
-
-    public static void extendedEuclid() {
-        int a = 30;
-        int b = 50;
-        System.out.println("a = " + a + " and b = " + b);
-
-        AtomicInteger x = new AtomicInteger(), y = new AtomicInteger();
-
-        System.out.println("The GCD is " + extended_gcd(a, b, x, y));
-        System.out.printf("x = %d, y = %d\n", x.get(), y.get());
-    }
-
-    public static void extendedBinaryEuclid() {
-        int a = 36;
-        int b = 54;
-        int[] res = extendedBinary_gcd(a, b);
-        System.out.printf("(%d)*%d + (%d)*%d = %d\n", res[0], a, res[1], b, res[2]);
-    }
-
-    public static void fermatPrimality() {
-        int k = 3;
-        if (isPrime(11,k)) System.out.println(" true");
-        else System.out.println(" false");
-        if (isPrime(15, k)) System.out.println(" true");
-        else System.out.println(" false");
-    }
-
-    public static void jacobiSymbol() {
-        int a = 3;
-        int n = 7;
-        int result = calculateJacobi(a, n);
-        System.out.printf("Jacobi symbol of (%d/%d) = %d\n", a, n, result);
-    }
-
-    public static void solovayStrassenTest() {
-        int iter = 50;
-        int n1 = 15;
-        int n2 = 13;
-
-        if (solovayStrassen(n1, iter))
-            System.out.println(n1 + " is prime");
-        else
-            System.out.println(n1 + " is composite");
-
-        if (solovayStrassen(n2,iter))
-            System.out.println(n2 + " is prime");
-        else
-            System.out.println(n2 + " is composite");
-    }
-
-    public static void millerRabinTest() {
-        int k = 8;
-        int number = 1725;
-        System.out.println("All primes smaller "
-                + "than 100: ");
-
-        for (int n = 1; n < 100; n++)
-            if (isPrimeMiller(n, k))
-                System.out.print(n + " ");
-    }
-
-    public static void rhoAlgorithmFact() {
-        int number = 1824;
-        System.out.println("Pollard Rho Algorithm\n");
-        System.out.println("the number is " + number);
-
-        System.out.println("\nFactors are : ");
-        factorRho(number);
-    }
-
-    public static void rhoAlgorithmLog() {
-        int n = 1258125;
-        System.out.println("the number is " + n);
-        System.out.print("Divisor of  " + n + " is " +
-                rhoLog(n));
-    }
-
-    public static void arithmetic() {
-        int result;
-        Scanner scan = new Scanner(System.in);
-        System.out.println("enter any number1 > 0\n");
-        int n1 = scan.nextInt();
-        System.out.println("enter any number2 > 0\n");
-        int n2 = scan.nextInt();
-
-        System.out.println("add operation\n");
-        result = add(n1,n2);
-        System.out.println(result + "\n");
-        System.out.println("substract operation\n");
-        result = substract(n1,n2);
-        System.out.println(result + "\n");
-        System.out.println("multiply operation\n");
-        result = multiply(n1,n2);
-        System.out.println(result + "\n");
-        System.out.println("divide\n");
-        result = divide(n1,n2);
-        System.out.println(result + "\n");
-        System.out.println("karatsuba algorithm\n");
-        result = multiplyKaratsuba(n1,n2);
-        System.out.println(result + "\n");
-
     }
 }
