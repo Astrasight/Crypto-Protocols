@@ -5,6 +5,7 @@ import static com.crypto.signatures.elgamalSignatureClass.*;
 import static com.crypto.utils.cipherUtils.*;
 import static com.crypto.utils.RSAutils.*;
 import static com.crypto.signatures.blindSignatureClass.*;
+import static com.crypto.utils.languageUtils.denominator;
 import static java.lang.System.in;
 
 import java.lang.reflect.Method;
@@ -22,10 +23,15 @@ public class cryptoMain {
 
         cryptoInvokes myObj = new cryptoInvokes();
         Method[] methods = cryptoInvokes.class.getDeclaredMethods();
-
+        String func;
+        String methodName;
+        int i = 0;
         for(Method method : methods) {
             if (Modifier.isPublic(method.getModifiers())) {
                 method.invoke(myObj);
+                func = method.getName();
+                System.out.println("\n" + func + "\n");
+                denominator();
             }
         }
 

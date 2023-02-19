@@ -20,7 +20,6 @@ public class cryptoInvokes {
     private final static String alphabet = "abcdefghijklmnopqrstuvwxyz ";
 
     public static void caesarCipher() {
-        System.out.println("Caesar Cipher\n");
         String[] alphabet1 = new String[]{"abcdefghijklmnopqrstuvwxyz"};
 
         String message = "some text with particular length";
@@ -41,7 +40,6 @@ public class cryptoInvokes {
     }
 
     public static void atbashCipher() {
-        System.out.println("Atbash Cipher\n");
         String text = "flip the text and replace each odd character with its number";
         int[] isOdd = {1};
         StringBuilder sb = new StringBuilder();
@@ -58,7 +56,6 @@ public class cryptoInvokes {
     }
 
     public static void routeCipher() {
-        System.out.println("Route Cipher\n");
         System.out.print("type your key: ");
         Scanner scan = new Scanner(System.in);
         String key = scan.nextLine();
@@ -116,7 +113,6 @@ public class cryptoInvokes {
     }
 
     public static void vigenereCipher() {
-        System.out.println("Vigenere Cipher\n");
         String key = "en";
         vigenereCipher v = new vigenereCipher(97, 26);
         String enc = v.encrypt("english", key);
@@ -127,7 +123,6 @@ public class cryptoInvokes {
     }
 
     public static void grilleCipher() {
-        System.out.println("Grille Cipher\n");
         String plainText = "jimattacksatdawnnowinthemorning";
         grilleCipher cipher = new grilleCipher(plainText);
         grilleAlgo key = cipher.generateRandomKey();
@@ -137,7 +132,6 @@ public class cryptoInvokes {
     }
 
     public static void XORcipher() {
-        System.out.println("XOR Cipher\n");
         String message = "some text to be encrypted";
         String key = "thisisakey";
 
@@ -152,7 +146,6 @@ public class cryptoInvokes {
     }
 
     public static void euclidCipher() {
-        System.out.println("Default GCD\n");
         int a = 103;
         int b = 485;
         System.out.println("a = " + a);
@@ -167,7 +160,6 @@ public class cryptoInvokes {
     }
 
     public static void binaryEuclidCipher() {
-        System.out.println("Binary GCD\n");
         int a = 189206;
         int b = 246;
 
@@ -179,7 +171,6 @@ public class cryptoInvokes {
     }
 
     public static void extendedEuclid() {
-        System.out.println("Extended GCD\n");
         int a = 30;
         int b = 50;
         System.out.println("a = " + a + " and b = " + b);
@@ -192,7 +183,6 @@ public class cryptoInvokes {
     }
 
     public static void extendedBinaryEuclid() {
-        System.out.println("Extended Binary GCD\n");
         int a = 36;
         int b = 54;
         int[] res = extendedBinary_gcd(a, b);
@@ -201,7 +191,6 @@ public class cryptoInvokes {
     }
 
     public static void fermatPrimality() {
-        System.out.println("Fermat Primality Test\n");
         int k = 3;
         if (isPrime(11,k)) System.out.println(" true");
         else System.out.println(" false");
@@ -211,7 +200,6 @@ public class cryptoInvokes {
     }
 
     public static void jacobiSymbol() {
-        System.out.println("Jacobi Symbol\n");
         int a = 3;
         int n = 7;
         int result = calculateJacobi(a, n);
@@ -220,7 +208,6 @@ public class cryptoInvokes {
     }
 
     public static void solovayStrassenTest() {
-        System.out.println("Solovay Strassen Test\n");
         int iter = 50;
         int n1 = 15;
         int n2 = 13;
@@ -238,7 +225,6 @@ public class cryptoInvokes {
     }
 
     public static void millerRabinTest() {
-        System.out.println("Miller Rabin Test\n");
         int k = 8;
         int number = 1725;
         System.out.println("All primes smaller "
@@ -251,7 +237,6 @@ public class cryptoInvokes {
     }
 
     public static void rhoAlgorithmFact() {
-        System.out.println("Rho Algorithm Factorial\n");
         int number = 1824;
         System.out.println("the number is " + number);
 
@@ -261,7 +246,6 @@ public class cryptoInvokes {
     }
 
     public static void rhoAlgorithmLog() {
-        System.out.println("Rho Algorithm Logarithmic\n");
         int n = 1258125;
         System.out.println("the number is " + n);
         System.out.print("Divisor of  " + n + " is " +
@@ -270,7 +254,6 @@ public class cryptoInvokes {
     }
 
     public static void arithmetic() {
-        System.out.println("Byte Arithmetic Operations\n");
         int result;
         Scanner scan = new Scanner(System.in);
         System.out.println("enter any number1 > 0\n");
